@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/article/:articleId" element={<ArticleFullView />} />
+          <Route path="/latest-news" element={<div>Latest News articles</div>} />
         </Routes>
       </Router>
     </div>
