@@ -1,54 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LeftDirectionArrow from "../Icons/LeftDirectionArrow";
 import RightDirectionArrow from "../Icons/rightDirArrow";
-import { fetchTopNews } from "../services/WorldNews";
 import TopStoriesSkeleton from "../skeletons/TopStoriesSkeleton";
 import RightSideNav from "./RightSideNav";
 import { Link } from "react-router-dom";
+import { useTopStories } from "../stores/topStories";
 
 export default function TopStories() {
-  const [topNews, setTopNews] = useState([]);
-  const [trendingArticles, setTrendingArticles] = useState([]);
-  const [currArticle, setCurrArticle] = useState(null);
-  const [currArticleIdx, setCurrArticleIdx] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { filteredTopNews, trendingArticles } = await fetchTopNews();
-      setTopNews(filteredTopNews);
-      setCurrArticle(filteredTopNews[currArticleIdx]);
-      setTrendingArticles(trendingArticles);
-    };
-
-    // fetchData();
-  }, []);
-
-  const showNextRightArticle = () => {
-    if (currArticleIdx === 5) {
-      setCurrArticleIdx(0);
-      setCurrArticle(topNews[0]);
-      return;
-    }
-    setCurrArticle(topNews[currArticleIdx + 1]);
-    setCurrArticleIdx((prev) => prev + 1);
-  };
-
-  const showNextLeftArticle = () => {
-    if (currArticleIdx === 0) {
-      setCurrArticleIdx(4);
-      setCurrArticle(topNews[4]);
-      return;
-    }
-    setCurrArticle(topNews[currArticleIdx - 1]);
-    setCurrArticleIdx((prev) => prev - 1);
-  };
+  const {
+    isLoading,
+    trendingArticles,
+    currArticle,
+    currArticleIdx,
+    showNextRightArticle,
+    showNextLeftArticle
+  } = useTopStories();
 
   useEffect(() => {
     const id = setInterval(showNextRightArticle, 4000);
     return () => clearInterval(id)
   }, [currArticleIdx])
 
-  if (!currArticle) return <TopStoriesSkeleton />;
+  if (isLoading) return <TopStoriesSkeleton />;
 
   return (
     <div className="flex justify-center gap-4 mx-auto mt-2 max-w-screen-xl">

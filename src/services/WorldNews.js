@@ -1,4 +1,4 @@
-const filterTopNews = (data) => {
+const filterTopStories = (data) => {
     /***
       takes data as a param and returns
       unique artciles by removing duplicates
@@ -12,8 +12,8 @@ const filterTopNews = (data) => {
         news.forEach(article => {
             const title = article.title;
             const firstTwoWrods = title.split(" ").slice(0, 2).join("-").toLowerCase();
-            if (!possiblySimilarTitles.has(firstTwoWrods)) {
 
+            if (!possiblySimilarTitles.has(firstTwoWrods)) {
                 // Check if the article has the required props
                 if (article.title
                     && article.text
@@ -21,10 +21,7 @@ const filterTopNews = (data) => {
                     && article.image
                     && article.publish_date
                     && (article.author || article.source)
-                ) {
-                    filteredArticles.push(article);
-                }
-
+                ) { filteredArticles.push(article) }
                 possiblySimilarTitles.add(firstTwoWrods)
             }
         })
@@ -62,7 +59,7 @@ const getTrendingArticles = (data) => {
     }));
 }
 
-export async function fetchTopNews() {
+export const fetchTopStories = async () => {
     const url = 'https://api.worldnewsapi.com/top-news?source-country=us&language=en';
 
     const options = {
@@ -78,13 +75,10 @@ export async function fetchTopNews() {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         const data = await response.json();
-        const filteredTopNews = filterTopNews(data);
+        const topStories = filterTopStories(data);
         const trendingArticles = getTrendingArticles(data);
 
-        return {
-            filteredTopNews,
-            trendingArticles
-        }
+        return { topStories, trendingArticles }
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error)
     }

@@ -27,16 +27,17 @@ export default function NewsCard({data, styles}) {
          to={`/article/${id}`}
          className={titleStyles}
       >
-        {title}
+        {title?.slice(40)}...
       </Link>
-       <p className={summaryStyles}> {summary} </p>
+       <p className={summaryStyles}> {summary?.slice(0, 123)}... </p>
 
-       <div className="flex gap-1">
-         <span className={sourceStyles}>{source}</span>
-         <span className={pubDateStyles}>{pubDate}</span>
+       <div className="flex justify-between mt-auto">
+         <div className="flex gap-1">
+           <span className={sourceStyles}>{source}</span>
+           <span className={pubDateStyles}>{pubDate.split(" ")[0]}</span>
+         </div>
+         <Link to={`/article/${id}`} className={readTextStyles}> Read </Link>
        </div>
-
-       <Link to={`/article/${id}`} className={readTextStyles}> Read </Link>
     </div>
   )
 }
