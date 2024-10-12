@@ -1,29 +1,8 @@
-const formatLatestNews = (data) => {
-  const res = data["results"];
-  const formattedNews = res.map(article => {
-    const {
-      article_id, image_url, title,
-      description, text, source_name,
-      source_icon, pubDate
-    } = article;
+import formatNews from "../utils/formatNews";
 
-    return {
-      id: article_id,
-      image: image_url,
-      title: title,
-      summary: description,
-      content: text,
-      source: source_name,
-      sourceIcon: source_icon,
-      pubDate: pubDate,
-    }
-  })
-
-  return formattedNews
-}
+const apiKey = import.meta.env.VITE_NEWS_DATA_IO_API_KEY;
 
 export const fetchLatestNews = async () => {
-  const apiKey = import.meta.env.VITE_NEWS_DATA_IO_API_KEY;
   const url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&language=en&removeduplicate=1`;
 
   try {
@@ -32,7 +11,26 @@ export const fetchLatestNews = async () => {
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
     const data = await response.json();
-    return {latestNews: formatLatestNews(data)};
+    return {latestNews: formatNews(data)};
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  }
+}
+
+export const fetchNewsByCategory = async (category) => {
+  let url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&language=en&removeduplicate=1&`
+  if (category.toLowerCase() === "general") {
+    url += "category=business,entertainment,food";
+  } else url += `category=${category.toLowerCase()}`
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+
+    return {news: formatNews(data)};
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)
   }

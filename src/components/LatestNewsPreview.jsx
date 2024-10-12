@@ -34,14 +34,14 @@ export default function LatestNewsPreview() {
       </div>
       <div className="grid gap-4 grid-cols-1 justify-between min-[550px]:grid-cols-2 lg:gap-8 xl:gap-4 xl:grid-cols-4">
         {isLoading ?
-          latestNewsPreview.map((article, i) => {
-            return <NewsCardSkeleton  styles={newsCardStyles} key={i}/>
+          [0, 1, 2, 3].map(value => {
+            return <NewsCardSkeleton  styles={newsCardStyles} key={value}/>
           }) :
           latestNewsPreview.map((article, i) => {
             return <NewsCard  data={article} styles={newsCardStyles} key={i}/>
           })
         }
-      </div> :
+      </div>
     </div>
   )
 }
