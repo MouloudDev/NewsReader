@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useTopStories } from "./stores/topStories";
 import { useLatestNews } from "./stores/latestNews";
 import { useNewsCategories } from "./stores/newsCategories";
+import Footer from "./components/Footer";
 import './App.css'
 
 function App() {
@@ -32,7 +33,9 @@ function App() {
           <Route path="/" element={<HomePage />}/>
           <Route path="/article/:articleId" element={<ArticleFullView />} />
           <Route path="/latest-news" element={<div>Latest News articles</div>} />
+          <Route path="/news/:source" element={<div>News by source</div>} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   )
