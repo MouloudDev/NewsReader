@@ -59,15 +59,15 @@ export default function NewsOverview() {
                     to={`/article/${id}`}
                     className="text-xl font-semibold block text-left hover:underline transition-all duration-300"
                   >
-                    {title.slice(0, 40)}{title.length > 40 && "..."}
+                    {title?.slice(0, 40)}{title?.length > 40 && "..."}
                   </Link>
                   <p
                     className="text-sm font-normal text-left"
                   >
-                    {summary.slice(0, 123)}{summary.length > 123 && "..."}
+                    {summary?.slice(0, 123)}{summary?.length > 123 && "..."}
                   </p>
                   <div className="flex items-end mt-auto">
-                    <span className="text-sm font-thin text-left">{pubDate.split(" ")[0]}</span>
+                    <span className="text-sm font-thin text-left">{pubDate?.split(" ")[0]}</span>
                     <Link
                       to={`/article/${id}`}
                       className="ml-auto text-sm font-semibold text-[#E40000] hover:underline transition-all duration-300"
@@ -79,7 +79,7 @@ export default function NewsOverview() {
                 <img
                   src={image}
                   alt="thumbnail"
-                  className="w-full rounded-lg order-[-1] xl:order-[1] xl:col-span-2"
+                  className="w-full rounded-lg order-[-1] xl:order-[1] xl:col-span-2 xl:max-h-48"
                 />
               </div>
             )
@@ -87,9 +87,9 @@ export default function NewsOverview() {
         </div>
       </div>
       <div className="grid content-between gap-2 sm:max-xl:grid-cols-2 xl:col-span-3 xl:pl-3 xl:border-l xl:border-l-zinc-200">
-        {otherCategories.map(({category, article}) => {
+        {otherCategories.map(({category, article}, idx) => {
           return (
-            <div key={article.id}>
+            <div key={idx}>
               <CategoryHeader category={category} />
               <NewsCard data={article} styles={newsCardStyles}/>
             </div>

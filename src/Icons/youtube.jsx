@@ -3,7 +3,7 @@ export default function YoutubeIcon() {
     <img
       src="/public/Youtube.png"
       alt="youtube icon"
-      width={40}
+      width={42}
       height={30}
     />
   )

@@ -25,17 +25,25 @@ export const useNewsCategories = create((set, get) => ({
       });
     }
   },
+  getWorldNews: () => {
+    const { isLoading, world } = get();
+    return {
+      isLoading,
+      mainArticle: world[0],
+      secArticles:  [world[1], world[2]],
+      restOfArticles: world.slice(3)
+    }
+  },
   getNewsOverview: () => {
     const {general, politics, sports, isLoading} = get();
     const randIdx1 = Math.floor(Math.random() * (general.length - 4));
     const randIdx2 = Math.floor(Math.random() * politics.length);
     const randIdx3 = Math.floor(Math.random() * sports.length);
-
     return {
       isLoading,
       general: general.slice(randIdx1, randIdx1 + 4),
       politics: politics[randIdx2],
       sports: politics[randIdx3],
     }
-  }
+  },
 }))

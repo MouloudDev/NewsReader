@@ -34,6 +34,7 @@ function App() {
           <Route path="/article/:articleId" element={<ArticleFullView />} />
           <Route path="/latest-news" element={<div>Latest News articles</div>} />
           <Route path="/news/:source" element={<div>News by source</div>} />
+          <Route path="/category/:category" element={<div>News by category</div>} />
         </Routes>
         <Footer />
       </Router>

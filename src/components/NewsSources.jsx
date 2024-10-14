@@ -6,7 +6,7 @@ import CNNIcon from "../Icons/cnn"
 import TheworldIcon from "../Icons/theworld"
 import CNBCIcon from "../Icons/cnbc"
 
-export default function NewsResources() {
+export default function NewsSources() {
   const sources = [
     { name: "CNN", icon: CNNIcon },
     { name: "BBC", icon: BBCIcon },
@@ -17,7 +17,7 @@ export default function NewsResources() {
   ];
 
   return (
-    <div className="mx-auto mt-5 w-full max-w-screen-xl">
+    <div className="mx-auto my-5 w-full max-w-screen-xl">
       <h2 className="text-2xl font-semibold text-left mb-4">News Sources</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {sources.map(({ name, icon: Icon }) => (

@@ -24,7 +24,6 @@ export const useTopStories = create((set) => ({
       });
     }
   },
-
   showNextRightArticle: () => {
     set(state => {
       const maxArticles = state.topStories.length > 5 ? 5 : state.topStories.length ;
@@ -35,7 +34,6 @@ export const useTopStories = create((set) => ({
       };
     });
   },
-
   showNextLeftArticle: () => {
     set(state => {
       const maxArticles = state.topStories.length > 5 ? 5 : state.topStories.length ;

@@ -18,7 +18,7 @@ export default function Footer() {
   ]
 
   return (
-    <div className="w-full bg-[#373245] px-2 py-5 text-white mt-5">
+    <div className="w-full bg-[#373245] px-2 py-5 text-white">
       <div className="flex flex-col justify-between mx-auto mt-5 w-full max-w-screen-xl">
         <div className="grid gap-2 grid-col-2 border-b border-b-gray-400 pb-7 sm:grid-cols-4 ">
           <div className="col-span-2">
