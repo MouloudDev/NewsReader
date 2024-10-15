@@ -5,8 +5,8 @@ export default function CategoryHeader({ category }) {
 
   return (
     <div className="flex justify-between items-end mb-2">
-      <h2 className="text-2xl font-semibold">
-         {category.charAt(0).toUpperCase() + category.slice(1)}
+      <h2 className="text-2xl font-semibold dark:text-white">
+        {category.charAt(0).toUpperCase() + category.slice(1)}
       </h2>
       <Link
         to={`/${category}`}

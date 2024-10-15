@@ -18,18 +18,18 @@ export default function NewsSources() {
 
   return (
     <div className="mx-auto my-5 w-full max-w-screen-xl">
-      <h2 className="text-2xl font-semibold text-left mb-4">News Sources</h2>
+      <h2 className="text-2xl font-semibold text-left mb-4 dark:text-white">News Sources</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {sources.map(({ name, icon: Icon }) => (
           <Link
             to={`/news/${name.toLowerCase().replace(' ', '')}`}
             key={name}
-            className="flex flex-col items-center justify-center p-4 border rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            className="flex flex-col items-center justify-center p-4 border rounded-lg hover:bg-gray-100 transition-colors duration-200 dark:border-gray-300 dark:bg-[#2c2c2c] dark:hover:bg-zinc-800"
           >
             <div className="w-20 h-12 flex items-center justify-center mb-2">
-              <Icon className="max-w-full max-h-full object-contain" />
+              <Icon className="max-w-full max-h-full object-contain dark:text-gray-200" />
             </div>
-            <h3 className="text-sm font-medium text-center">{name}</h3>
+            <h3 className="text-sm font-medium text-center dark:text-gray-200">{name}</h3>
           </Link>
         ))}
       </div>

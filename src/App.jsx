@@ -26,7 +26,7 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <div className="dark:bg-[#2c2c2c]">
       <Router>
         <TopBar />
         <Routes>
