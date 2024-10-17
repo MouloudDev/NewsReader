@@ -2,11 +2,12 @@ import NewsCard from "./NewsCard";
 import NewsCardSkeleton from "../skeletons/NewsCardSkeleton";
 import { useLatestNews } from "../stores/latestNews";
 import CategoryHeader from "./CategoryHeader";
+import ErrorComponent from "./ErrorComponent";
 
 export default function LatestNewsPreview() {
   const isLoading = useLatestNews(state => state.isLoading);
-  const latestNewsPreview = useLatestNews(state => state.latestNewsPreview);
   const error = useLatestNews(state => state.error);
+  const latestNewsPreview = useLatestNews(state => state.latestNewsPreview);
 
   const newsCardStyles = {
     wrapperStyles: "flex flex-col justify-start rounded-lg border border-zinc-200 shadow-md w-full p-2 hover:bg-zinc-100 transition-all duration-300 dark:bg-[#2c2c2c] dark:border-gray-300 dark:hover:bg-zinc-800",

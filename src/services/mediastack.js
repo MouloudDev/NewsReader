@@ -3,10 +3,10 @@ const apiKey = import.meta.env.VITE_MEDIASTACK_API_KEY;
 
 // Fetches news by category from mediastack.
 export const fetchMediaStackCategory = async (category) => {
-  let url =  `https://api.mediastack.com/v1/news?access_key=${apiKey}&categories=${category}&language=en&limit=40`;
+  let url =  `https://api.mediastack.com/v1/news?access_key=${apiKey}&categories=${category}&languages=en&limit=40`;
 
   if (category === "mixed") {
-    url =  `https://api.mediastack.com/v1/news?access_key=${apiKey}&categories=general,politics,sports&language=en&limit=40`;
+    url =  `https://api.mediastack.com/v1/news?access_key=${apiKey}&categories=general,politics,sports&languages=en&limit=40`;
   }
 
   try {
@@ -41,19 +41,19 @@ function groupMixedNews(news) {
   return groupedNews;
 };
 
-const getThreeDayRange = () => {
+const getDateRange = (days) => {
   const today = new Date();
-  const threeDaysAgo = new Date();
-  threeDaysAgo.setDate(today.getDate() - 3);
+  const pastDate = new Date();
+  pastDate.setDate(today.getDate() - days);
 
   const formatDate = (date) => date.toISOString().split('T')[0];
 
-  return `${formatDate(threeDaysAgo)},${formatDate(today)}`;
+  return `${formatDate(pastDate)},${formatDate(today)}`;
 };
 
 // Fetch top Stories in the last 3 days.
 export const fetchStoriesFromMediaStack = async () => {
-  const url = `https://api.mediastack.com/v1/news?access_key=${accessKey}&date=${getThreeDayRange()}`;
+  const url = `https://api.mediastack.com/v1/news?access_key=${accessKey}&date=${getDateRange(4)}&languages=en`;
   try {
     const response = await fetch(url);
 
@@ -68,6 +68,22 @@ export const fetchStoriesFromMediaStack = async () => {
       formattedData?.slice(topStories.length, topStories.length + 6);
 
     return { topStories, trendingArticles }
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  }
+}
+
+// Fetch latest news in the last 24 hours.
+export const fetchLatestNewsFromMediastack = async () => {
+  const url = `https://api.mediastack.com/v1/news?access_key=${accessKey}&date=${getDateRange(1)}&languages=en`;
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+
+    return {latestNews: formatNews(data)};
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)
   }

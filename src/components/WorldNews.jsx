@@ -39,6 +39,8 @@ export default function WorldNews() {
 
   if (error) return <ErrorComponent message={error}/>
 
+  if (!mainArticle) return null;
+
   return (
     <div className="mx-auto mt-5 w-full max-w-screen-xl">
       <CategoryHeader category="world" />

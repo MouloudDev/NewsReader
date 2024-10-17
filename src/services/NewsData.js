@@ -3,7 +3,7 @@ import formatNews from "../utils/formatNews";
 const apiKey = import.meta.env.VITE_NEWS_DATA_IO_API_KEY;
 
 export const fetchLatestNews = async () => {
-  const url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&language=en&removeduplicate=1`;
+  const url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&languages=en&removeduplicate=1`;
 
   try {
     const response = await fetch(url);
