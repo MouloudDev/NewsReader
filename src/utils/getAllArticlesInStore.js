@@ -8,7 +8,10 @@ export default function getAllArticlesInStore() {
   const trendingArticles = useTopStories.getState().trendingArticles;
   const {
     world, general,
-    politics, sports
+    politics, sports,
+    business, science,
+    technology, health,
+    entertainment,
   } = useNewsCategories.getState();
 
   return [
@@ -16,6 +19,9 @@ export default function getAllArticlesInStore() {
     ...topStories,
     ...trendingArticles,
     ...world, ...general,
-    ...politics, ...sports
+    ...politics, ...sports,
+    ...business, ...science,
+    ...technology, ...health,
+    ...entertainment
   ]
 }

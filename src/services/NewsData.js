@@ -11,13 +11,15 @@ export const fetchLatestNews = async () => {
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
     const data = await response.json();
+
     return {latestNews: formatNews(data)};
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)
   }
 }
 
-export const fetchNewsByCategory = async (category) => {
+// Fetches news by category from NewsData.io
+export const fetchNewsDataCategory = async (category) => {
   let url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&language=en&removeduplicate=1&`
   if (category.toLowerCase() === "general") {
     url += "category=business,entertainment,food";

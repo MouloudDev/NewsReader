@@ -4,8 +4,8 @@ import RightSideNavSkeleton from "./RightSideNavSkeleton";
 
 export default function TopStoriesSkeleton() {
   return (
-    <div className="w-full flex justify-center gap-4 m-1 max-w-screen-xl mx-auto">
-      <div className="flex-grow">
+    <div className="grid md:grid-cols-6 gap-4 w-full m-1 max-w-screen-xl mx-auto">
+      <div className="md:col-span-4">
         <h1 className="text-4xl font-bold text-start mb-3 leading-tight">Top Stories</h1>
 
         <div className="flex border-2 border-gray-300 rounded-lg shadow-sm w-full">

@@ -3,6 +3,7 @@ import NewsCard from "./NewsCard";
 import { useNewsCategories } from "../stores/newsCategories";
 import WorldNewsSkeleton from "../skeletons/WorldNewsSkeleton";
 import CategoryHeader from "./CategoryHeader";
+import ErrorComponent from "./ErrorComponent";
 
 export default function WorldNews() {
   const getWorldNews = useNewsCategories(state => state.getWorldNews);
@@ -10,7 +11,8 @@ export default function WorldNews() {
     isLoading,
     mainArticle,
     secArticles,
-    restOfArticles
+    restOfArticles,
+    error
   } = getWorldNews();
 
   const lgCardStyles = {
@@ -34,6 +36,8 @@ export default function WorldNews() {
   };
 
   if (isLoading) return <WorldNewsSkeleton />
+
+  if (error) return <ErrorComponent message={error}/>
 
   return (
     <div className="mx-auto mt-5 w-full max-w-screen-xl">

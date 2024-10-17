@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import abbreviateStr from "../utils/abbreviateStr";
 
 export default function NewsCard({data, styles}) {
   if (!data) return null;
@@ -10,7 +11,6 @@ export default function NewsCard({data, styles}) {
     summary,
     source,
     pubDate,
-    publish_date,
   } = data;
   const {
     wrapperStyles,
@@ -30,18 +30,20 @@ export default function NewsCard({data, styles}) {
         to={`/article/${id}`}
         className={titleStyles}
       >
-        {title?.slice(0, 40)}{title?.length > 40 && "..."}
+        {abbreviateStr(title, 35)}
       </Link>
 
       <p className={summaryStyles}>
-        {summary?.slice(0, 123)}{summary?.length > 123 && "..."}
+        {abbreviateStr(summary, 100)}
       </p>
 
       <div className="flex justify-between mt-auto">
-        <div className="flex gap-1">
-          <span className={sourceStyles}>{source?.slice(0, 12)}{source?.length > 12 ? "..." : ""}</span>
+        <div className="flex gap-1 w-full">
+          <span className={sourceStyles}>
+            {abbreviateStr(source, 8)}
+          </span>
           <span className={pubDateStyles}>
-            {pubDate?.split(" ")[0] || publish_date?.split(" ")[0]}
+            {pubDate}
           </span>
         </div>
         <Link to={`/article/${id}`} className={readTextStyles}> Read </Link>

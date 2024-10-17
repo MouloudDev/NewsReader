@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import abbreviateStr from "../utils/abbreviateStr";
 
 const categories = [
   "Politics",
@@ -10,7 +11,7 @@ const categories = [
 
 export default function RightSideNav({ trendingArticles }) {
   return (
-    <div className="p-3 rounded-lg bg-[#F1F1F1] flex-grow max-w-80 ml-auto hidden md:block dark:bg-[#2c2c2c] dark:border dark:border-gray-200">
+    <div className="p-3 w-full md:col-span-2 bg-[#F1F1F1] ml-auto hidden md:block dark:bg-[#2c2c2c] dark:border-l dark:border-l-gray-200">
       <div>
         <h3 className="text-2xl font-medium text-start text-black dark:text-gray-200"> Categories </h3>
         <ul className="mt-2 list-none ml-auto text-start w-full">
@@ -38,7 +39,7 @@ export default function RightSideNav({ trendingArticles }) {
                   to={`/article/${id}`}
                   className="block pl-8 py-2 rounded-md min-w-full text-black dark:text-gray-200 hover:bg-white dark:hover:bg-zinc-200 dark:hover:text-gray-900 transition-all duration-500"
                 >
-                  {title.slice(0, 25)}...
+                  {abbreviateStr(title, 30)}...
                 </Link>
               </li>
             )

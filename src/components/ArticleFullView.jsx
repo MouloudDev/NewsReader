@@ -6,6 +6,7 @@ import NewsSources from "./NewsSources";
 import getArticleDataById from "../utils/getArticleDataById";
 import ArticleNotFound from "./ArticleNotFound";
 import RecentNewsInCategoryOrCountry from "./RecentNewsInCategoryOrCountry.JSX";
+import abbreviateStr from "../utils/abbreviateStr";
 
 export default function ArticleFullView() {
   const { articleId } = useParams();
@@ -15,7 +16,7 @@ export default function ArticleFullView() {
 
   const { article, relatedArticles, recentArticles } = articleDate;
   const { image, title, author, source, country, pubDate,
-          content, summary, description, category
+          content, summary, description, category, url
         } = article;
 
   return (
@@ -35,7 +36,7 @@ export default function ArticleFullView() {
           <span
             className={`text-[#3C3A3A] font-medium pr-3 mr-3 border-r border-r-gray-300 dark:text-gray-100 ${source ? "" : `${country ? "" : "hidden"}`}`}
           >
-            {source || country}
+            {source? abbreviateStr(source, 13) : abbreviateStr(country, 10)}
           </span>
           <span
             className={`text-[#3C3A3A] font-medium pr-3 mr-3 border-r border-r-gray-300 dark:text-gray-100 ${author ? "" : "hidden"}`}
@@ -57,8 +58,9 @@ export default function ArticleFullView() {
             return <p className="text-lg text-left font-normal mb-2 dark:text-white" key={idx}>{paragraph}</p>
           })}
           {!content && (<div>
-            <p className="text-red-800 border border-red-800 my-1 px-2 py-1 rounded-lg bg-red-300 dark:text-red-600 dark:bg-red-100">
-              The api doesn't provide the Article content. {"(Please read the summary below)."}
+            <p className="text-red-800 text-left border border-red-800 my-1 px-2 py-1 rounded-lg bg-red-300 dark:text-red-600 dark:bg-red-100">
+              The API does not provide the full article content. Please read the summary below.
+              You can <a href={url} target="_blank" className="underline hover:text-blue-600 transition-all">read the full article</a> directly from the source.
             </p>
             <p className="text-lg text-left font-normal dark:text-white">{summary || description }</p>
           </div>)}

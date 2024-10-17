@@ -1,6 +1,6 @@
 export default function RightSideNavSkeleton() {
   return (
-      <div className="p-3 rounded-lg bg-[#F1F1F1] flex-grow max-w-72 ml-auto hidden md:block">
+      <div className="p-3 rounded-lg bg-[#F1F1F1] w-full ml-auto hidden md:block md:col-span-2">
           <div>
               <h3 className="text-2xl font-medium text-start mb-2">
                   <div className="h-6 bg-gray-300 animate-pulse rounded-md w-3/4"></div>

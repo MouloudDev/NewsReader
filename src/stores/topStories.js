@@ -4,7 +4,7 @@ import { fetchTopStories } from "../services/WorldNews";
 export const useTopStories = create((set) => ({
   isLoading: true,
   topStories: [],
-  trendingArticles: [],
+  trendingArticles:  [],
   currArticle: {},
   currArticleIdx: 0,
   fetchData: async () => {
@@ -18,6 +18,7 @@ export const useTopStories = create((set) => ({
         error: null,
       }));
     } catch (error) {
+      console.log("Error ===>", error)
       set({
         isLoading: false,
         error: 'Failed to fetch top stories. Please try again later.',
@@ -26,8 +27,11 @@ export const useTopStories = create((set) => ({
   },
   showNextRightArticle: () => {
     set(state => {
-      const maxArticles = state.topStories.length > 5 ? 5 : state.topStories.length ;
-      const nextIdx = state.currArticleIdx === maxArticles ? 0 : state.currArticleIdx + 1;
+      const topStoriesLen = state.topStories.length;
+      const currIdx = state.currArticleIdx;
+
+      const maxArticles = topStoriesLen > 5 ? 5 : topStoriesLen ;
+      const nextIdx = currIdx === maxArticles -1 ? 0 : currIdx + 1;
       return {
         currArticleIdx: nextIdx,
         currArticle: state.topStories[nextIdx]
@@ -36,8 +40,11 @@ export const useTopStories = create((set) => ({
   },
   showNextLeftArticle: () => {
     set(state => {
-      const maxArticles = state.topStories.length > 5 ? 5 : state.topStories.length ;
-      const nextIdx = state.currArticleIdx === 0 ? maxArticles : state.currArticleIdx - 1;
+      const topStoriesLen = state.topStories.length;
+      const currIdx = state.currArticleIdx;
+
+      const maxArticles = topStoriesLen > 5 ? 5 : topStoriesLen ;
+      const nextIdx = currIdx === 0 ? (maxArticles - 1) : currIdx - 1;
       return {
         currArticleIdx: nextIdx,
         currArticle: state.topStories[nextIdx]

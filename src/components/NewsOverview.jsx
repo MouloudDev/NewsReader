@@ -3,6 +3,8 @@ import CategoryHeader from "./CategoryHeader";
 import NewsCard from "./NewsCard";
 import { useNewsCategories } from "../stores/newsCategories";
 import NewsOverviewSkeleton from "../skeletons/NewsOverviewSkeleton";
+import ErrorComponent from "./ErrorComponent";
+import abbreviateStr from "../utils/abbreviateStr";
 
 export default function NewsOverview() {
   const getNewsOverview = useNewsCategories(state => state.getNewsOverview);
@@ -10,7 +12,8 @@ export default function NewsOverview() {
     isLoading,
     general,
     politics,
-    sports
+    sports,
+    error
   } = getNewsOverview();
 
   const otherCategories = [
@@ -29,6 +32,8 @@ export default function NewsOverview() {
   };
 
   if (isLoading) return <NewsOverviewSkeleton />;
+
+  if (error) return <ErrorComponent message={error}/>
 
   return (
     <div className="grid gap-2 mx-auto mt-5 w-full max-w-screen-xl xl:grid-cols-7">
@@ -59,12 +64,12 @@ export default function NewsOverview() {
                     to={`/article/${id}`}
                     className="text-xl font-semibold block text-left hover:underline transition-all duration-300 dark:text-white"
                   >
-                    {title?.slice(0, 40)}{title?.length > 40 && "..."}
+                    {abbreviateStr(title, 40)}
                   </Link>
                   <p
                     className="text-sm font-normal text-left dark:text-gray-300"
                   >
-                    {summary?.slice(0, 123)}{summary?.length > 123 && "..."}
+                    {abbreviateStr(summary, 123)}
                   </p>
                   <div className="flex items-end mt-auto">
                     <span className="text-sm font-thin text-left dark:text-gray-200">{pubDate?.split(" ")[0]}</span>
@@ -88,6 +93,7 @@ export default function NewsOverview() {
       </div>
       <div className="grid content-between gap-2 sm:max-xl:grid-cols-2 xl:col-span-3 xl:pl-3 xl:border-l xl:border-l-zinc-200 dark:border-l-gray-300">
         {otherCategories.map(({ category, article }, idx) => {
+          if (!article) return null;
           return (
             <div key={idx}>
               <CategoryHeader category={category} />

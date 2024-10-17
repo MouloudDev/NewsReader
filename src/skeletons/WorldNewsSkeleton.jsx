@@ -25,8 +25,8 @@ export default function WorldNewsSkeleton() {
   return (
     <div className="mx-auto mt-5 w-full max-w-screen-xl">
       <div className="flex justify-between items-end mb-2">
-        <h2 className="text-2xl font-semibold">World</h2>
-        <Link to="/general" className="text-md text-[#E40000] font-medium block hover:underline transition-all duration-300">
+        <h2 className="text-2xl font-semibold dark:text-white">World</h2>
+        <Link to="/category/world" className="text-md text-[#E40000] font-medium block hover:underline transition-all duration-300">
           See all
         </Link>
       </div>

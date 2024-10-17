@@ -18,7 +18,7 @@ export default function Footer() {
   ]
 
   return (
-    <div className="w-full bg-[#373245] px-2 py-5 text-white dark:bg-[#2c2c2c] dark:border-t dark:border-t-gray-400">
+    <div className="w-full h-fit mt-auto bg-[#373245]  px-2 py-5 text-white dark:bg-[#2c2c2c] dark:border-t dark:border-t-gray-400">
       <div className="flex flex-col justify-between mx-auto mt-5 w-full max-w-screen-xl">
         <div className="grid gap-2 grid-col-2 border-b border-b-gray-400 pb-7 sm:grid-cols-4">
           <div className="col-span-2">
@@ -30,14 +30,16 @@ export default function Footer() {
           <div>
             <h2 className="text-2xl font-semibold text-left mb-1 dark:text-white">Quick Links</h2>
             <ul className="text-left">
-              {quickLinks.map(name => {
+              {quickLinks.map(link => {
+                 let formattedLink = link.toLowerCase().replace(/\s+/g, '-');
+                 const path = formattedLink === "home" ? "/" : `/${formattedLink}`;
                 return (
-                  <li key={name}>
+                  <li key={link}>
                     <Link
-                      to={`/${name}`}
+                      to={path}
                       className="text-sm hover:underline transition-all duration-200 dark:text-gray-300 dark:hover:text-gray-400"
                     >
-                      {name.charAt(0).toUpperCase()}{name.slice(1)}
+                      {link.charAt(0).toUpperCase()}{link.slice(1)}
                     </Link>
                   </li>
                 )
