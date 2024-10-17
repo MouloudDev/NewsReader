@@ -8,10 +8,10 @@ import { useLatestNews } from "./stores/latestNews";
 import { useNewsCategories } from "./stores/newsCategories";
 import Footer from "./components/Footer";
 import NewsbyCatOrSrcPage from "./components/NewsbyCatOrSrcPage";
-import './App.css'
 import UnderDevelopment from "./components/UnderDevelopment";
 import NotFound from "./components/NotFound";
 import SearchPage from "./components/SearchPage";
+import './App.css'
 
 function App() {
   const fetchTopStories = useTopStories(state => state.fetchData);
