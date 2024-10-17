@@ -35,7 +35,7 @@ export default function LatestNewsPreview() {
 
   return (
     <div className="mx-auto mt-5 w-full max-w-screen-xl">
-      <CategoryHeader category={"Latest News"} />
+      <CategoryHeader category="Latest News"/>
       <div className="grid gap-4 grid-cols-1 justify-between min-[550px]:grid-cols-2 lg:gap-8 xl:gap-4 xl:grid-cols-4">
         {latestNewsPreview.map((article, i) => (
           <NewsCard data={article} styles={newsCardStyles} key={i} />

@@ -2,25 +2,39 @@ import { nanoid } from 'nanoid';
 
 export default function formatNews(responseData) {
   let articles = [];
-
+  let source;
   // Determine the source and extract articles
   if (responseData.data) {
       // Mediastack
       articles = responseData.data;
+      source = "mediastack";
   } else if (responseData.news) {
       // Worldnews API
       articles = responseData.news;
+      source = "worldnews";
   } else if (responseData.top_news) {
     // Worldnews API
     articles = responseData.top_news.map(news => news.news).flat(Infinity);
+    source = "worldnews";
   }
   else if (responseData.results) {
       // Newdata.io
       articles = responseData.results;
+      source = "newsdata";
   }
 
   // Format each article
-  const formattedArticles = articles.map(article => ({
+  const formattedArticles = articles.map(article => {
+    let articleCat;
+    let articleCntry;
+    if (source !== "newsdata") {
+      articleCat = article.category;
+      articleCntry = article.country
+    } else {
+      articleCat = article.country[0];
+      articleCntry = article.country[0]
+    }
+    return {
       ...article, // Include all other original properties.
       id: article.id || article.article_id || nanoid(),
       image: article.image || article.image_url || null,
@@ -30,13 +44,14 @@ export default function formatNews(responseData) {
       source: article.source || article.source_name || "",
       sourceIcon: article.source_icon || "",
       url: article.url || article.source_url,
-      country: article.country[0] || article.country || "",
-      category: article.category[0] || article.category || "",
+      country: articleCntry || "",
+      category: articleCat || "",
       pubDate:
         article.published_at?.slice(0, 10) ||
         article.pubDate?.slice(0, 10) ||
         article.publish_date?.slice(0, 10) || "",
-  }));
+    }
+  });
 
   const uniqueArtilces = removeDuplicates(formattedArticles);
 

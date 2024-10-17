@@ -17,7 +17,8 @@ export const useNewsCategories = create((set, get) => ({
       const categories = [
         "mixed",
         "world",
-        "general", "politics",
+        "general",
+        "politics",
         "sports",
         // "business",
         // "science", "technology",
@@ -35,7 +36,6 @@ export const useNewsCategories = create((set, get) => ({
         // {news: health},
         // {news: entertainment},
       ] = await Promise.all(categories.map(category => fetchNewsByCategory(category)));
-
       set({
         isLoading: false,
         world,
@@ -50,7 +50,6 @@ export const useNewsCategories = create((set, get) => ({
         error: null
       });
     } catch (error) {
-      console.log("Error ==>", error)
       set({
         isLoading: false,
         error: 'Failed to fetch news. Please try again later.',

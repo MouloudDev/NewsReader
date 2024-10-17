@@ -7,13 +7,13 @@ import ErrorComponent from "./ErrorComponent";
 import abbreviateStr from "../utils/abbreviateStr";
 
 export default function NewsOverview() {
+  const isLoading = useNewsCategories(state => state.isLoading);
   const getNewsOverview = useNewsCategories(state => state.getNewsOverview);
+  const error = useNewsCategories(state => state.error);
   const {
-    isLoading,
     general,
     politics,
-    sports,
-    error
+    sports
   } = getNewsOverview();
 
   const otherCategories = [

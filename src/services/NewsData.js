@@ -27,11 +27,9 @@ export const fetchNewsDataCategory = async (category) => {
 
   try {
     const response = await fetch(url);
-
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
     const data = await response.json();
-
     return {news: formatNews(data)};
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error)

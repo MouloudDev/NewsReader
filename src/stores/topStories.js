@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { fetchTopStories } from "../services/WorldNews";
+import { fetchStoriesFromMediaStack } from "../services/mediastack";
 
 export const useTopStories = create((set) => ({
   isLoading: true,
@@ -18,11 +19,22 @@ export const useTopStories = create((set) => ({
         error: null,
       }));
     } catch (error) {
-      console.log("Error ===>", error)
-      set({
-        isLoading: false,
-        error: 'Failed to fetch top stories. Please try again later.',
-      });
+      // Attempt to fetch from the alternative source if the first fetch fails
+      try {
+        const { topStories, trendingArticles } = await fetchStoriesFromMediaStack();
+        set(state => ({
+          isLoading: false,
+          topStories,
+          currArticle: topStories[state.currArticleIdx],
+          trendingArticles,
+          error: null,
+        }));
+      } catch (secondError) {
+        set({
+          isLoading: false,
+          error: 'Failed to fetch top stories. Please try again later.',
+        });
+      }
     }
   },
   showNextRightArticle: () => {

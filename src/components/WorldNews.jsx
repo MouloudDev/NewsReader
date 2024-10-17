@@ -6,13 +6,13 @@ import CategoryHeader from "./CategoryHeader";
 import ErrorComponent from "./ErrorComponent";
 
 export default function WorldNews() {
+  const isLoading = useNewsCategories(state => state.isLoading);
   const getWorldNews = useNewsCategories(state => state.getWorldNews);
+  const error = useNewsCategories(state => state.error);
   const {
-    isLoading,
     mainArticle,
     secArticles,
     restOfArticles,
-    error
   } = getWorldNews();
 
   const lgCardStyles = {

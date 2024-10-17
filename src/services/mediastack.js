@@ -39,4 +39,36 @@ function groupMixedNews(news) {
   });
 
   return groupedNews;
+};
+
+const getThreeDayRange = () => {
+  const today = new Date();
+  const threeDaysAgo = new Date();
+  threeDaysAgo.setDate(today.getDate() - 3);
+
+  const formatDate = (date) => date.toISOString().split('T')[0];
+
+  return `${formatDate(threeDaysAgo)},${formatDate(today)}`;
+};
+
+// Fetch top Stories in the last 3 days.
+export const fetchStoriesFromMediaStack = async () => {
+  const url = `https://api.mediastack.com/v1/news?access_key=${accessKey}&date=${getThreeDayRange()}`;
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+
+    const formattedData = formatNews(data);
+
+    const topStories = formattedData?.slice(0, 6);
+    const trendingArticles =
+      formattedData?.slice(topStories.length, topStories.length + 6);
+
+    return { topStories, trendingArticles }
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+  }
 }

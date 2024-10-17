@@ -8,7 +8,6 @@ export const useLatestNews = create((set) => ({
   fetchData: async () => {
     try {
       const { latestNews } = await fetchLatestNews();
-      console.log("latest news from store", latestNews);
       set({
         isLoading: false,
         latestNews,
@@ -16,7 +15,6 @@ export const useLatestNews = create((set) => ({
         error: null,
       });
     } catch (error) {
-      console.log("Error ===>", error)
       set({
         isLoading: false,
         error: 'Failed to fetch latest news. Please try again later.',

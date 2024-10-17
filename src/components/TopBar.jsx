@@ -9,7 +9,7 @@ export default function TopBar() {
         <div className="grid w-full h-full gap-1 grid-rows-2 grid-cols-2 mx-auto p-3 max-w-screen-xl sm:flex sm:gap-1 sm:items-center">
           <Link to="/">
             <img
-              src="../../public/logo.png"
+              src="./logo.png"
               alt="Logo"
               className="min-w-[137px]"
             />
